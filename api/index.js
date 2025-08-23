@@ -10,16 +10,26 @@ const cookieParser = require('cookie-parser');
 const multer = require('multer');
 const uploadMiddleware = multer({ dest: 'uploads/' });
 const fs = require('fs');
+require('dotenv').config();
 
 const salt = bcrypt.genSaltSync(10);
-const secret = 'asdfe45we45w345wegw345werjktjwertkj';
 
 app.use(cors({credentials:true,origin:'http://localhost:3000'}));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
-mongoose.connect('mongodb+srv://nishtha:CrPdkQWYakKEYeei@cluster0.zirqvbr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
+const secret = process.env.SECRET_KEY;
+const url = process.env.BACK_URL;
+
+mongoose.connect(url, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  tls: true,
+  tlsAllowInvalidCertificates: false
+}).then(() => {
+  console.log('Connected to MongoDB')
+}).catch((err) => console.log('Error connecting to MongoDB:', err));
 // CrPdkQWYakKEYeei
 //mongodb+srv://nishtha:CrPdkQWYakKEYeei@cluster0.zirqvbr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 
