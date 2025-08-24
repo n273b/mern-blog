@@ -14,7 +14,22 @@ require('dotenv').config();
 
 const salt = bcrypt.genSaltSync(10);
 
-app.use(cors());
+const allowedOrigins = [
+  "https://mern-blog-client-k5xs.onrender.com", // your deployed frontend
+  "http://localhost:3000" // for local dev
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    console.log(origin)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, origin);  // respond with the actual origin
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
+}));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
