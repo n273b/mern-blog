@@ -14,7 +14,15 @@ require('dotenv').config();
 
 const salt = bcrypt.genSaltSync(10);
 
-app.use(cors({credentials:true,origin:'https://mern-blog-client-k5xs.onrender.com/'}));
+// Configure CORS
+const corsOptions = {
+  origin: 'https://your-frontend-domain.com', // Replace with your actual frontend domain
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, // If you need to send cookies or authentication headers
+  optionsSuccessStatus: 204 // For preflight requests
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
