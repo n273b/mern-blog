@@ -14,7 +14,7 @@ require('dotenv').config();
 
 const salt = bcrypt.genSaltSync(10);
 
-app.use(cors({credentials:true,origin:'http://localhost:3000'}));
+app.use(cors({credentials:true,origin:'https://mern-blog-client-k5xs.onrender.com/'}));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
