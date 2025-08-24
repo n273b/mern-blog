@@ -19,10 +19,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
-app.use(cors({
-  origin: "*",  // allow all origins
-  credentials: false // credentials (cookies, auth headers) can't be used with "*"
-}));
+app.use(cors({credentials:true,origin:'https://mern-blog-client-k5xs.onrender.com/'}));
 
 const secret = process.env.SECRET_KEY;
 const url = process.env.BACK_URL;
